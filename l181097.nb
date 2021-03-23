@@ -1,0 +1,485 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     18947,        477]
+NotebookOptionsPosition[     17631,        451]
+NotebookOutlinePosition[     18003,        467]
+CellTagsIndexPosition[     17960,        464]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+     "This", " ", "function", " ", "uses", " ", "Picard", " ", "Method", " ", 
+      "to", " ", "solve", " ", "the", " ", "problem", " ", "upto", " ", "the",
+       " ", "nth", " ", "order", 
+      RowBox[{"(", "numberOfIterations", ")"}], " ", "and", " ", "then", " ", 
+      "gives", " ", "the", " ", 
+      RowBox[{"result", ".", " ", "Also"}]}], ",", 
+     RowBox[{
+     "values", " ", "of", " ", "x", " ", "can", " ", "be", " ", "passed", " ",
+       "in", " ", "an", " ", "array", " ", "to", " ", "get", " ", "required", 
+      " ", "solution", " ", "values"}]}], 
+    StyleBox[
+     RowBox[{"*", ")"}]]}],
+   FontSize->16,
+   FontWeight->"Bold",
+   FontColor->RGBColor[1, 0, 0]], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Clear", "[", "picardMethod", "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"picardMethod", "[", 
+     RowBox[{
+     "func_", ",", " ", "numberOfIterations_", ",", "valX0_", ",", " ", 
+      "valY0_", ",", 
+      RowBox[{"givenValX_:", " ", 
+       RowBox[{"{", "}"}]}]}], "]"}], " ", ":=", "\[IndentingNewLine]", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"n", ",", "y", ",", "i"}], "}"}], ",", " ", "\n", "   ", 
+      RowBox[{
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"n", " ", "=", " ", "1"}], ",", " ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"y", "[", "0", "]"}], "[", "x_", "]"}], " ", "=", " ", 
+            "valY0"}]}], "}"}], ",", 
+         RowBox[{"n", " ", "<=", " ", "numberOfIterations"}], ",", " ", 
+         RowBox[{"n", "++"}], ",", " ", "\n", "    ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"y", "[", "n", "]"}], "[", "x_", "]"}], " ", "=", " ", 
+          RowBox[{"valY0", " ", "+", "  ", 
+           RowBox[{"Expand", "[", "\[IndentingNewLine]", 
+            RowBox[{"Subtract", "@@", 
+             RowBox[{"(", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"Integrate", "[", 
+                RowBox[{
+                 RowBox[{"func", "[", 
+                  RowBox[{"t", ",", 
+                   RowBox[{
+                    RowBox[{"y", "[", 
+                    RowBox[{"n", " ", "-", " ", "1"}], "]"}], "[", "t", 
+                    "]"}]}], "]"}], ",", "t"}], "]"}], "/.", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"t", "\[Rule]", "x"}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"t", "\[Rule]", "valX0"}], "}"}]}], "}"}]}], 
+              ")"}]}], "]"}]}]}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Print", "[", 
+        RowBox[{"\"\<Solution\\t=\\t\>\"", ",", 
+         RowBox[{
+          RowBox[{"y", "[", 
+           RowBox[{"n", " ", "-", " ", "1"}], "]"}], "[", "x", "]"}]}], "]"}],
+        ";", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"givenValX", " ", "\[NotEqual]", " ", 
+          RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"For", "[", 
+          RowBox[{
+           RowBox[{"i", "=", "1"}], ",", 
+           RowBox[{"i", " ", "<=", 
+            RowBox[{"Length", "[", "givenValX", "]"}]}], ",", 
+           RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"Print", "[", 
+            RowBox[{"\"\<y(\>\"", ",", 
+             RowBox[{"givenValX", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ",", "\"\<)\\t=\\t\>\"", ",", 
+             RowBox[{
+              RowBox[{"y", "[", 
+               RowBox[{"n", " ", "-", " ", "1"}], "]"}], "[", 
+              RowBox[{"givenValX", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], "]"}]}], "]"}]}], "]"}]}], 
+        "]"}]}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+   StyleBox[
+    RowBox[{"(*", 
+     RowBox[{"Problems", " ", "and", " ", "Solutions"}], "*)"}],
+    FontSize->36], 
+   StyleBox["\[IndentingNewLine]",
+    FontSize->36], "\[IndentingNewLine]", 
+   StyleBox[
+    RowBox[{
+     StyleBox["(*",
+      FontSize->16], 
+     RowBox[{
+      RowBox[{
+       StyleBox["Note",
+        FontSize->18], 
+       StyleBox[":",
+        FontSize->18], 
+       StyleBox["\[IndentingNewLine]",
+        FontSize->16], 
+       StyleBox[
+        RowBox[{
+        "By", " ", "default", " ", "we", " ", "have", " ", "set", " ", 
+         "numberOfIterations", " ", "to", " ", "less", " ", "than", " ", "10",
+          " ", "in", " ", "most", " ", "problems", " ", "to", " ", "avoid", 
+         " ", "complex", " ", "integrals"}],
+        FontSize->16]}], 
+      StyleBox[",",
+       FontSize->16], 
+      StyleBox[" ",
+       FontSize->16], 
+      StyleBox[
+       RowBox[{
+       "long", " ", "output", " ", "and", " ", "minimze", " ", "evaluation", 
+        " ", 
+        RowBox[{"time", ".", " ", "However"}]}],
+       FontSize->16], 
+      StyleBox[",",
+       FontSize->16], 
+      StyleBox[
+       RowBox[{
+       "you", " ", "can", " ", "extend", " ", "numberOfIterations", " ", "to",
+         " ", "any", " ", "number", " ", "you", " ", "want"}],
+       FontSize->16], 
+      StyleBox[",",
+       FontSize->16], 
+      StyleBox[" ",
+       FontSize->16], 
+      StyleBox[
+       RowBox[{"code", " ", "will", " ", 
+        RowBox[{
+         RowBox[{"work", "!"}], ".", " ", "But"}]}],
+       FontSize->16], 
+      StyleBox[",",
+       FontSize->16], 
+      StyleBox[" ",
+       FontSize->16], 
+      StyleBox[
+       RowBox[{
+       "It", " ", "will", " ", "take", " ", "too", " ", "much", " ", "time", 
+        " ", "to", " ", 
+        RowBox[{"evaluate", "."}]}],
+       FontSize->16]}], 
+     StyleBox[
+      StyleBox[
+       RowBox[{"*", ")"}]],
+      FontSize->16]}],
+    FontWeight->"Bold",
+    FontColor->RGBColor[1, 0, 0]], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.8170403589905777`*^9, 3.8170403896157284`*^9}, {
+   3.817040433872115*^9, 3.8170404922340035`*^9}, {3.817040657241622*^9, 
+   3.8170406573882093`*^9}, {3.817040739800324*^9, 3.8170408424970994`*^9}, 
+   3.817040889685795*^9, {3.8170410108456154`*^9, 3.8170410309610147`*^9}, {
+   3.817041083630559*^9, 3.8170410840545487`*^9}, {3.8170411497440214`*^9, 
+   3.817041253703726*^9}, {3.8170413020010705`*^9, 3.817041421044238*^9}, {
+   3.817041502141167*^9, 3.817041679846904*^9}, {3.8170486809471636`*^9, 
+   3.8170486811778316`*^9}, {3.817048737915617*^9, 3.8170488408552184`*^9}, {
+   3.8170488771279564`*^9, 3.817048878052765*^9}, {3.817048909649132*^9, 
+   3.817048910031249*^9}, {3.817048958230281*^9, 3.8170489837961617`*^9}, {
+   3.8170490780964727`*^9, 3.8170490789910154`*^9}, {3.8170492195242558`*^9, 
+   3.8170492361480227`*^9}, 3.81704927844279*^9, {3.81704931332248*^9, 
+   3.81704931351287*^9}, {3.817049355024994*^9, 3.817049390497669*^9}, {
+   3.817049806579812*^9, 3.8170498239796267`*^9}, {3.8171084495780363`*^9, 
+   3.8171084929845867`*^9}, {3.817108604999568*^9, 3.8171086118904486`*^9}, {
+   3.8171088171802225`*^9, 3.8171088259709773`*^9}, 3.8171088793177223`*^9, {
+   3.8171092432667084`*^9, 3.8171092763819532`*^9}, {3.817109308316434*^9, 
+   3.817109333510748*^9}, {3.81710944782736*^9, 3.817109448188839*^9}, {
+   3.817109507946977*^9, 3.81710953788443*^9}, {3.8171096890372615`*^9, 
+   3.817109717432716*^9}, {3.8171098892602053`*^9, 3.817109891801899*^9}, {
+   3.8171103736367364`*^9, 3.817110545346738*^9}, {3.817110592402246*^9, 
+   3.817110605336838*^9}, {3.8171106613068533`*^9, 3.8171108163891783`*^9}, {
+   3.817110860507601*^9, 3.817111010304289*^9}, {3.817111057090852*^9, 
+   3.817111071785441*^9}, {3.81722224905846*^9, 3.817222249218012*^9}, 
+   3.8172223024482765`*^9, 3.817222626777339*^9, {3.81722268773709*^9, 
+   3.8172228098945646`*^9}},
+ CellLabel->
+  "(Debug) In[6]:=",ExpressionUUID->"ffd3a6f0-587d-4118-8db0-24a4d18da57f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Question", " ", 
+    RowBox[{"(", "v", ")"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "[", 
+    RowBox[{"problem", ",", "x", ",", "y"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+   "Print", "[", 
+    "\"\<\\n\\n****************************Question \
+(v)***************************************\>\"", "]"}], "\n", 
+   RowBox[{
+    RowBox[{"problem", "[", 
+     RowBox[{"x_", ",", "y_"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{"E", "^", "x"}], " ", "+", " ", 
+     RowBox[{"y", "^", "2"}]}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Problem\\t=\\t\>\"", ",", 
+      RowBox[{"problem", "[", 
+       RowBox[{"x", ",", "y"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"picardMethod", "[", 
+    RowBox[{"problem", ",", "5", ",", "0", ",", "0"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.8172228326964054`*^9, 3.817222841815998*^9}, {
+  3.8172242053551855`*^9, 3.8172242054479723`*^9}, {3.8172243409668837`*^9, 
+  3.8172243477188473`*^9}, {3.81722501556507*^9, 
+  3.8172250768325763`*^9}},ExpressionUUID->"e20f899d-2382-41a5-9037-\
+18ed3ae942c6"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.8171098540447717`*^9, 3.817109855639229*^9}, 
+   3.8171100671491537`*^9, 
+   3.817110838404518*^9},ExpressionUUID->"f36ac329-ea8f-408d-b409-\
+b882a8e65cb4"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.8170412645203733`*^9, 3.817041268031233*^9}, 
+   3.817041300420537*^9},ExpressionUUID->"59dde7a8-ed41-4903-a05e-\
+48902012f5a0"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Question", " ", 
+    RowBox[{"(", "vi", ")"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "[", 
+    RowBox[{"problem", ",", "x", ",", "y"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+   "Print", "[", 
+    "\"\<\\n\\n****************************Question \
+(vi)**************************************\>\"", "]"}], "\n", 
+   RowBox[{
+    RowBox[{"problem", "[", 
+     RowBox[{"x_", ",", "y_"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"y", "-", "x"}], ")"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"x", "+", "y"}], ")"}]}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Problem\\t=\\t\>\"", ",", 
+      RowBox[{"problem", "[", 
+       RowBox[{"x", ",", "y"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"picardMethod", "[", 
+    RowBox[{"problem", ",", "2", ",", "0", ",", "1", ",", 
+     RowBox[{"{", "0.1", "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.817109344908307*^9, 3.8171093505310154`*^9}, {
+  3.817109434027785*^9, 3.817109434415772*^9}, {3.8171097228799057`*^9, 
+  3.817109738952668*^9}, {3.8171099452504234`*^9, 3.817109947203814*^9}, {
+  3.8171100843630266`*^9, 3.817110123827256*^9}, {3.8172243851388555`*^9, 
+  3.8172244119570503`*^9}, {3.8172251080916243`*^9, 3.8172251449858885`*^9}},
+ CellLabel->
+  "(Debug) In[183]:=",ExpressionUUID->"47b5463a-f3cb-4743-bba1-d875619a05c1"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Question", " ", 
+    RowBox[{"(", "vii", ")"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "[", 
+    RowBox[{"problem", ",", "x", ",", "y"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+   "Print", "[", 
+    "\"\<\\n\\n****************************Question \
+(vii)************************************\>\"", "]"}], "\n", 
+   RowBox[{
+    RowBox[{"problem", "[", 
+     RowBox[{"x_", ",", "y_"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"x", "^", "2"}], ")"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"1", " ", "+", " ", 
+       RowBox[{"y", "^", "2"}]}], ")"}]}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Problem\\t=\\t\>\"", ",", 
+      RowBox[{"problem", "[", 
+       RowBox[{"x", ",", "y"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"picardMethod", "[", 
+    RowBox[{"problem", ",", "2", ",", "0", ",", "0", ",", 
+     RowBox[{"{", 
+      RowBox[{"0.25", ",", "0.5"}], "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.817109355939928*^9, 3.8171093812846284`*^9}, {
+  3.8171094291414423`*^9, 3.817109430038374*^9}, {3.8171097428590527`*^9, 
+  3.8171097665194707`*^9}, {3.817109896893268*^9, 3.8171099592747602`*^9}, {
+  3.8171100363625193`*^9, 3.8171100464961224`*^9}, {3.8171101402348337`*^9, 
+  3.817110156227948*^9}, {3.817224448759559*^9, 3.8172244489021792`*^9}, {
+  3.8172244831400843`*^9, 3.817224483291678*^9}},
+ CellLabel->
+  "(Debug) In[8]:=",ExpressionUUID->"61593baa-e0a5-4ff0-97d4-91713ef4da22"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Question", " ", 
+    RowBox[{"(", "viii", ")"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "[", 
+    RowBox[{"problem", ",", "x", ",", "y"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+   "Print", "[", 
+    "\"\<\\n\\n*****************************Question \
+(viii)***********************************\>\"", "]"}], "\n", 
+   RowBox[{
+    RowBox[{"problem", "[", 
+     RowBox[{"x_", ",", "y_"}], "]"}], "=", 
+    RowBox[{"x", " ", "-", " ", 
+     RowBox[{"y", "^", "2"}]}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Problem\\t=\\t\>\"", ",", 
+      RowBox[{"problem", "[", 
+       RowBox[{"x", ",", "y"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"picardMethod", "[", 
+    RowBox[{"problem", ",", "8", ",", "0", ",", "1"}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Note", ":", " ", 
+     RowBox[{"it", " ", "will", " ", "take", " ", "some", " ", "time"}]}], 
+    "*)"}]}]}]], "Input",
+ CellChangeTimes->{{3.8171093857904*^9, 3.81710941907185*^9}, {
+  3.81711016654315*^9, 3.817110201303014*^9}, {3.8171110181814175`*^9, 
+  3.8171110186186295`*^9}, {3.817224577923289*^9, 3.817224580958133*^9}, {
+  3.8172249199012384`*^9, 
+  3.8172250002340994`*^9}},ExpressionUUID->"5e114fe6-171b-46ef-b24c-\
+c40afa530bb6"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Question", " ", 
+    RowBox[{"(", "ix", ")"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "[", 
+    RowBox[{"problem", ",", "x", ",", "y"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+   "Print", "[", 
+    "\"\<\\n\\n*****************************Question \
+(ix)*************************************\>\"", "]"}], "\n", 
+   RowBox[{
+    RowBox[{"problem", "[", 
+     RowBox[{"x_", ",", "y_"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{"x", "^", "2"}], "  ", "+", " ", 
+     RowBox[{"y", "^", "2"}]}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Problem\\t=\\t\>\"", ",", 
+      RowBox[{"problem", "[", 
+       RowBox[{"x", ",", "y"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"picardMethod", "[", 
+    RowBox[{"problem", ",", "10", ",", "0", ",", "0"}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Note", ":", " ", 
+     RowBox[{"it", " ", "will", " ", "take", " ", "some", " ", "time"}]}], 
+    "*)"}]}]}]], "Input",
+ CellChangeTimes->{{3.8171094048035946`*^9, 3.817109423509529*^9}, {
+   3.8171102293886995`*^9, 3.8171102669234886`*^9}, {3.8171110299522142`*^9, 
+   3.8171110304360976`*^9}, {3.8172246849288783`*^9, 3.817224766005823*^9}, {
+   3.817224877555565*^9, 3.817224911183569*^9}, 3.8172250062500334`*^9, {
+   3.8172251995558805`*^9, 3.8172252005631523`*^9}, {3.817225243311781*^9, 
+   3.8172252444766636`*^9}},
+ CellLabel->
+  "(Debug) In[198]:=",ExpressionUUID->"143826a9-1a2a-4972-8398-43bbc8123838"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Question", " ", 
+    RowBox[{"(", "x", ")"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "[", 
+    RowBox[{"problem", ",", "x", ",", "y"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+   "Print", "[", 
+    "\"\<\\n\\n*****************************Question \
+(x)**************************************\>\"", "]"}], "\n", 
+   RowBox[{
+    RowBox[{"problem", "[", 
+     RowBox[{"x_", ",", "y_"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{"2", " ", "x"}], " ", "-", " ", "y"}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Problem\\t=\\t\>\"", ",", 
+      RowBox[{"problem", "[", 
+       RowBox[{"x", ",", "y"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"picardMethod", "[", 
+    RowBox[{"problem", ",", "10", ",", "1", ",", "3", ",", 
+     RowBox[{"{", "1.1", "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.8171094129481807`*^9, 3.8171094149467273`*^9}, {
+  3.8171102920555787`*^9, 3.817110316688222*^9}, {3.8172247978568573`*^9, 
+  3.8172248586711383`*^9}},
+ CellLabel->
+  "(Debug) In[138]:=",ExpressionUUID->"a7f722a7-a15c-43ec-a292-cd4f0ffd6d21"],
+
+Cell[CellGroupData[{
+
+Cell["", "Title",
+ CellChangeTimes->{
+  3.817109328297902*^9},ExpressionUUID->"b2b847f2-eb43-41b0-a1c0-\
+377e6feb68f9"],
+
+Cell["", "Title",
+ CellChangeTimes->{{3.817041020904867*^9, 
+  3.817041025729673*^9}},ExpressionUUID->"c9096c05-d858-490d-b0b7-\
+17ed3347e628"]
+}, Open  ]]
+},
+WindowSize->{1350, 685},
+WindowMargins->{{-8, Automatic}, {Automatic, 1}},
+Magnification:>1.4 Inherited,
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 7964, 193, 790, "Input",ExpressionUUID->"ffd3a6f0-587d-4118-8db0-24a4d18da57f"],
+Cell[8525, 215, 1179, 29, 181, "Input",ExpressionUUID->"e20f899d-2382-41a5-9037-18ed3ae942c6"],
+Cell[9707, 246, 205, 4, 40, "Input",ExpressionUUID->"f36ac329-ea8f-408d-b409-b882a8e65cb4"],
+Cell[9915, 252, 177, 3, 40, "Input",ExpressionUUID->"59dde7a8-ed41-4903-a05e-48902012f5a0"],
+Cell[10095, 257, 1465, 34, 228, "Input",ExpressionUUID->"47b5463a-f3cb-4743-bba1-d875619a05c1"],
+Cell[11563, 293, 1584, 37, 228, "Input",ExpressionUUID->"61593baa-e0a5-4ff0-97d4-91713ef4da22"],
+Cell[13150, 332, 1386, 34, 237, "Input",ExpressionUUID->"5e114fe6-171b-46ef-b24c-c40afa530bb6"],
+Cell[14539, 368, 1584, 37, 256, "Input",ExpressionUUID->"143826a9-1a2a-4972-8398-43bbc8123838"],
+Cell[16126, 407, 1199, 29, 228, "Input",ExpressionUUID->"a7f722a7-a15c-43ec-a292-cd4f0ffd6d21"],
+Cell[CellGroupData[{
+Cell[17350, 440, 119, 3, 135, "Title",ExpressionUUID->"b2b847f2-eb43-41b0-a1c0-377e6feb68f9"],
+Cell[17472, 445, 143, 3, 135, "Title",ExpressionUUID->"c9096c05-d858-490d-b0b7-17ed3347e628"]
+}, Open  ]]
+}
+]
+*)
+
